@@ -2,6 +2,9 @@
   "name": "final-project",
   "version": "1.0.0",
   "description": "Website status monitor with Twillio API for CIS36B final project",
+  "engines": {
+    "node": "11.0.0"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
