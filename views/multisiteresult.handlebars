@@ -1,0 +1,63 @@
+{{>header}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="multisite-title-box">
+                <h1 class="secondary-title multisite-title">render multiple site results</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="renderSitesBox">
+            {{#each sites}}
+            <h5 class="renderSiteNames">{{this}}</h5><span class="renderSiteCodes"></span><br>
+            {{/each}}
+            </div>
+            <form action="/deleteFile" method="POST">
+                <div class="clearBtnWrapper">
+                    <input type="submit" class="btn clearList" value="Clear List">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{>footer}}
+
+<script>
+    
+
+    let sitesArr = Array.from(document.getElementsByTagName('h5'));
+    let codesArr = Array.from(document.getElementsByTagName('span'));  
+    
+    for(let i = 0; i < sitesArr.length; i++) {
+        try {
+        fetch(sitesArr[i].innerHTML, {mode: 'cors'})
+        .then(result => {
+            if(result.status != 200) {
+                codesArr[i].innerHTML = "Error";
+                codesArr[i].classList.add("error");
+            } else{
+                // codesArr[i].innerHTML = result.status;
+                codesArr[i].innerHTML = "up and running";
+                codesArr[i].classList.add("success");
+            }
+        })
+        .catch(error => {
+            console.log(`Fetch Error: \t ${error}`);
+            codesArr[i].innerHTML = error;
+            codesArr[i].innerHTML = "Error";
+            codesArr[i].classList.add("error");
+            });
+        } catch(error) {
+            console.log(error);
+        }
+    }
+    
+</script>

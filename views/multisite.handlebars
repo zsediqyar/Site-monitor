@@ -1,0 +1,60 @@
+{{>header}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="multisite-title-box">
+                <h1 class="secondary-title multisite-title">check multiple sites</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="multisite-form-box">
+                <form action="/multisite" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+                    <div class="form-group first-row">
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" name="uploadedFile" id="fileUpload" hidden required onchange="checkExtension();"/>
+                            <label for="fileUpload" id="fileLabel">Choose File &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>* .PDF, .TXT</span></label>
+                        <input type="submit" value="Upload" class="btn upload">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="uploadResultBox" id="fileUploadBox">
+                <span id="fileName">{{result}}</span>
+                <h2 id="fileUploadName"></h2>
+                <h3 id="fileUploadError"></h3>
+                <a href="/renderfile" class="btn render" id="renderBtn" disabled>Render Result</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{>footer}}
+
+
+
+
+
+<script>
+    function fileUploadName() {
+        let fileupload = document.getElementById("fileUpload");
+        let filelabel = document.getElementById("fileLabel");
+        fileupload.onchange = function() {
+            filelabel.textContent = this.files[0].name;
+        }
+    }
+    fileUploadName();
+</script>

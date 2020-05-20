@@ -1,0 +1,52 @@
+{{>header}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="onesite-title-box">
+                <h1 class="secondary-title onesite-title">check one site</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="onesite-form-box">
+                <form action="/onesite" method="POST">
+                    <div class="form-group first-row">
+                        <input type="text" name="site" placeholder="https://www.example.com">
+                        <input type="text" name="receiver" id="receiver" placeholder="+15105871234" disabled>
+                        <input type="submit" value="Check it" class="btn checksite">
+                    </div>
+                    <div class="checkboxwrapper">
+                        <input type="checkbox" id="updatecheckbox" name="update" value="yes" onclick="getUpdate(this);" hidden>
+                        <label for="updatecheckbox" class="checkmark"></label> <small>Send this update to my phone</small>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron result-box">
+                <h2>{{name}} <span id="statusResult"></span></h2>
+                <h3 id="subResult">the server responded with a code <span id="statusCode">{{result}}</span></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{>footer}}
+
+
+<script src="/js/frontendScripts.js"></script>
+<script>
+    changeText();
+</script>
+
