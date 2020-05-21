@@ -96,6 +96,9 @@ app.get('/multisite', (req, res) => {
 app.post('/multisite', (req, res) => {
     let uploadedFile, fileName, path;
     let data = [];
+    let extMatch = true;
+    let fileExt;
+    let allowedFiles = ['.csv', '.txt'];
     if (req.files) {
         uploadedFile = req.files.uploadedFile;
         fileName = uploadedFile.name;
@@ -103,14 +106,20 @@ app.post('/multisite', (req, res) => {
         file.uploadFile(uploadedFile, path, fileName);
         file.filename = fileName;
         file.filepath = path;
-        
+
         filename = fileName;
         filepath = path;
+        fileExt = filename.substring(filename.length - 4);
+        for (let i = 0; i < allowedFiles.length; i++) {
+            if (fileExt != allowedFiles[i]) {
+                extMatch = false;
+            }
+        }
     }
-
+    console.log(fileExt);
     console.table(data);
     res.render('multisite', {
-        result: fileName
+        name: fileName
     });
 });
 
@@ -133,8 +142,6 @@ app.post('/deleteFile', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 4000, () => {
     console.log("Application Has Been Started");
 });
-
-//+12019756633

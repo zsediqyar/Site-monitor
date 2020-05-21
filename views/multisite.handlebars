@@ -14,12 +14,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="multisite-form-box">
-                <form action="/multisite" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+                <form action="/multisite" method="POST" enctype="multipart/form-data">
                     <div class="form-group first-row">
                         <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" name="uploadedFile" id="fileUpload" hidden required onchange="checkExtension();"/>
-                            <label for="fileUpload" id="fileLabel">Choose File &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>* .PDF, .TXT</span></label>
-                        <input type="submit" value="Upload" class="btn upload">
+                            <input type="file" class="custom-file-input" name="uploadedFile" id="fileUpload" hidden required/>
+                            <label for="fileUpload" id="fileLabel">Choose File &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>.CSV</span></label>
+                        <input type="submit" value="Upload" class="btn upload" id="uploadbtn" onclick="validateExtension()">
                     </div>
                 </form>
             </div>
@@ -31,10 +31,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="uploadResultBox" id="fileUploadBox">
-                <span id="fileName">{{result}}</span>
+                <span id="fileName">{{name}}</span>
                 <h2 id="fileUploadName"></h2>
-                <h3 id="fileUploadError"></h3>
-                <a href="/renderfile" class="btn render" id="renderBtn" disabled>Render Result</a>
+                <a href="/renderfile" class="btn render" id="renderBtn">Render Result</a>
             </div>
         </div>
     </div>
@@ -57,4 +56,20 @@
         }
     }
     fileUploadName();
+
+    function validateExtension() {
+        let fileName = document.getElementById("fileUploadName");
+        let fileInput = document.getElementById("fileUpload");
+        let renderBtn = document.getElementById("renderBtn");
+        let filePath = fileInput.value;
+        let fileExt = filePath.substring(filePath.length - 4);
+        let allowedExt = '.csv';
+        if(fileExt == allowedExt) {
+            fileName.innerHTML = "your file has been uploaded";
+        } else {
+            fileName.innerHTML = "Incorrect file extension, please select another one";
+            event.preventDefault();
+        }
+
+    }
 </script>
